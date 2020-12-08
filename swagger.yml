@@ -1,0 +1,605 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file that goes with our server code
+  version: "1.0.0"
+  title: Hakaton
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /v1
+
+paths:
+  /shedule_group/{group_id}:
+    get:
+      operationId: shedule.read_one
+      tags:
+        - shedule
+      summary: расписание конкретной группы
+      description: Возвращает список занятий группы. если группа с таким id не найдена - возвращается код 404.
+      parameters:
+        - name: group_id
+          in: path
+          description: идентификатор группы
+          type: integer
+          required: True
+        - name: token
+          in: query
+          description: token пользователя
+          type: string
+          required: True
+      responses:
+        400:
+          description: Bad request
+        401:
+          description: Unathorized
+        404:
+          description: Item Not Found
+        500:
+          description: Internal Server Error
+        200:
+          description: данные получены
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: id
+              lesson:
+                type: string
+                description: lesson
+              day:
+                type: string
+                description: day
+              time:
+                type: string
+                description: time
+              num:
+                type: integer
+                description: num
+              auditory:
+                type: string
+                description: auditory
+              teachers:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      description: id
+                    name:
+                      type: string
+                      description: name
+
+  /shedule_teacher/{teacher_id}:
+    get:
+      operationId: shedule_teacher.read_one
+      tags:
+        - shedule
+      summary: расписание преподавателя
+      description: Возвращает список занятий преподавателя. если преподаватель с таким id не найден - возвращается код 404.
+      parameters:
+        - name: teacher_id
+          in: path
+          description: идентификатор преподавателя
+          type: integer
+          required: True
+        - name: token
+          in: query
+          description: token пользователя
+          type: string
+          required: True
+      responses:
+        400:
+          description: Bad request
+        401:
+          description: Unathorized
+        404:
+          description: Item Not Found
+        500:
+          description: Internal Server Error
+        200:
+          description: данные получены
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: id
+              lesson:
+                type: string
+                description: lesson
+              day:
+                type: string
+                description: day
+              time:
+                type: string
+                description: time
+              num:
+                type: integer
+                description: num
+              auditory:
+                type: string
+                description: auditory
+              group_id:
+                type: integer
+                description: auditory
+              group_name:
+                type: string
+                description: auditory
+              teachers:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      description: id
+                    name:
+                      type: string
+                      description: name
+
+  /shedule_auditory/{auditory_id}:
+    get:
+      operationId: shedule_auditory.read_one
+      tags:
+        - shedule
+      summary: расписание конкретной группы
+      description: Возвращает список занятий группы. если группа с таким id не найдена - возвращается код 404.
+      parameters:
+        - name: auditory_id
+          in: path
+          description: идентификатор аудитории
+          type: integer
+          required: True
+        - name: token
+          in: query
+          description: token пользователя
+          type: string
+          required: True
+      responses:
+        400:
+          description: Bad request
+        401:
+          description: Unathorized
+        404:
+          description: Item Not Found
+        500:
+          description: Internal Server Error
+        200:
+          description: данные получены
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: id
+              lesson:
+                type: string
+                description: lesson
+              day:
+                type: string
+                description: day
+              time:
+                type: string
+                description: time
+              num:
+                type: integer
+                description: num
+              auditory:
+                type: string
+                description: auditory
+              group_id:
+                type: integer
+                description: auditory
+              group_name:
+                type: string
+                description: auditory
+              teachers:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      description: id
+                    name:
+                      type: string
+                      description: name
+
+  /faculty:
+    get:
+      operationId: group.read_one
+      tags:
+        - group
+      summary: информация о факультетах
+      description: Возвращает список факультетов. данные берутся из таблицы faculty.
+      parameters:
+        - name: token
+          in: query
+          description: token пользователя
+          type: string
+          required: True
+      responses:
+        400:
+          description: Bad request
+        401:
+          description: Unathorized
+        500:
+          description: Internal Server Error
+        200:
+          description: данные получены
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: id
+              login:
+                type: string
+                description: login
+              name:
+                type: string
+                description: name
+
+  /faculty/{faculty_id}:
+    get:
+      operationId: faculty_one
+      tags:
+        - group
+      summary: информация о факультетах
+      description: Возвращает список факультетов. данные берутся из таблицы faculty.
+      parameters:
+        - name: token
+          in: query
+          description: token пользователя
+          type: string
+          required: True
+        - name: faculty_id
+          in: path
+          description: идентификатор факультета
+          type: integer
+          required: True
+      responses:
+        400:
+          description: Bad request
+        401:
+          description: Unathorized
+        500:
+          description: Internal Server Error
+        200:
+          description: данные получены
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: id
+              name:
+                type: string
+                description: name
+              structures:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      description: id
+                    name:
+                      type: string
+                      description: name
+                    levels:
+                      type: array
+                      items:
+                        properties:
+                          id:
+                            type: integer
+                            description: id
+                          name:
+                            type: string
+                            description: name
+                          groups:
+                            type: array
+                            items:
+                              properties:
+                                id:
+                                  type: integer
+                                  description: id
+                                name:
+                                  type: string
+                                  description: name
+                                course:
+                                  type: integer
+                                  description: course
+                                url:
+                                  type: string
+                                  description: url
+
+  /teacher:
+    get:
+      operationId: teacher_one
+      tags:
+        - group
+      summary: информация о преподавателях
+      description: Возвращает список преподавателей.
+      parameters:
+        - name: token
+          in: query
+          description: token пользователя
+          type: string
+          required: True
+      responses:
+        400:
+          description: Bad request
+        401:
+          description: Unathorized
+        500:
+          description: Internal Server Error
+        200:
+          description: данные получены
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: id
+              name:
+                type: string
+                description: name
+
+  /auditory:
+    get:
+      operationId: auditory_one
+      tags:
+        - group
+      summary: информация об аудитория
+      description: Возвращает список аудиторий.
+      parameters:
+        - name: token
+          in: query
+          description: token пользователя
+          type: string
+          required: True
+      responses:
+        400:
+          description: Bad request
+        401:
+          description: Unathorized
+        500:
+          description: Internal Server Error
+        200:
+          description: данные получены
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: id
+              name:
+                type: string
+                description: name
+
+  /users:
+    get:
+      operationId: user.read_one
+      tags:
+        - user
+      summary: информация о пользователях API
+      description: Возвращает список пользователей. данные берутся из таблицы users.
+      parameters:
+        - name: token
+          in: query
+          description: token пользователя
+          type: string
+          required: True
+      responses:
+        400:
+          description: Bad request
+        401:
+          description: Unathorized
+        500:
+          description: Internal Server Error
+        200:
+          description: данные получены
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: id
+              login:
+                type: string
+                description: login
+              name:
+                type: string
+                description: name
+
+  /token/{user_id}:
+    get:
+      operationId: token.read_one
+      tags:
+        - user
+      summary: получение нового токена
+      description: Возвращает токен пользователя. Поле token рассчитывается следующим образом - генерируется случайное число в диапазоне от 1 до 10 000 000 и считается md5 хэш от этого числа. Токен действителен 30 дней.
+      parameters:
+        - name: token
+          in: query
+          description: token пользователя
+          type: string
+          required: True
+        - name: user_id
+          in: path
+          description: идентификатор пользователя
+          type: integer
+          required: True
+      responses:
+        400:
+          description: Bad request
+        401:
+          description: Unathorized
+        404:
+          description: Item Not Found
+        500:
+          description: Internal Server Error
+        200:
+          description: данные получены
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: id
+              name:
+                type: string
+                description: name
+              login:
+                type: string
+                description: login
+              token:
+                type: integer
+                description: token
+
+  /user:
+    post:
+      operationId: user.create
+      tags:
+        - user
+      summary: создать пользователя
+      description: добавляет нового пользователя в таблицу user. Поле token рассчитывается следующим образом - генерируется случайное число в диапазоне от 1 до 10 000 000 и считается md5 хэш от этого числа. Токен действителен 30 дней.
+      responses:
+        400:
+          description: Bad request
+        401:
+          description: Unathorized
+        404:
+          description: Item Not Found
+        500:
+          description: Internal Server Error
+        200:
+          description: данные получены
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: id
+              name:
+                type: string
+                description: name
+              login:
+                type: string
+                description: login
+              token:
+                type: integer
+                description: token
+
+  /user/{user_id}:
+    get:
+      operationId: user_userid.read_one
+      tags:
+        - user
+      summary: информация о пользователе с указанным id
+      description: Возвращает объект пользователя. данные берутся из таблицы users. если пользователь с таким id не найден - возвращается код 404.
+      parameters:
+        - name: token
+          in: query
+          description: token пользователя
+          type: string
+          required: True
+        - name: user_id
+          in: path
+          description: идентификатор пользователя
+          type: integer
+          required: True
+      responses:
+        400:
+          description: Bad request
+        401:
+          description: Unathorized
+        404:
+          description: Item Not Found
+        500:
+          description: Internal Server Error
+        200:
+          description: данные получены
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: id
+              name:
+                type: string
+                description: name
+              login:
+                type: string
+                description: login
+
+  /user/{user_id}:
+    put:
+      operationId: user.update
+      tags:
+        - user
+      summary: обновить пользователя
+      description: обновляет данные пользователя. Если пользователь с таким id не найден - возвращается код 404. Обновить можно только пользователя от имени которого отправляется запрос (т.е. нельзя с помощью своего токена обновлять других, в этом случае отправляется код 403).
+      parameters:
+        - name: token
+          in: query
+          description: token пользователя
+          type: string
+          required: True
+        - name: user_id
+          in: path
+          description: идентификатор пользователя
+          type: integer
+          required: True
+      responses:
+        400:
+          description: Bad request
+        401:
+          description: Unathorized
+        404:
+          description: Item Not Found
+        500:
+          description: Internal Server Error
+        200:
+          description: данные получены
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: id
+              name:
+                type: string
+                description: name
+              login:
+                type: string
+                description: login
+
+  /user/{user_id}:
+    delete:
+      operationId: user.delete
+      tags:
+        - user
+      summary: удалить пользователя
+      description: удаляет пользователя. Если пользователь с таким id не найден - возвращается код 404. Удалить можно только пользователя от имени которого отправляется запрос (т.е. нельзя с помощью своего токена удалять других, в этом случае отправляется код 403).
+      parameters:
+        - name: token
+          in: query
+          description: token пользователя
+          type: string
+          required: True
+        - name: user_id
+          in: path
+          description: идентификатор пользователя
+          type: integer
+          required: True
+      responses:
+        400:
+          description: Bad request
+        401:
+          description: Unathorized
+        404:
+          description: Item Not Found
+        500:
+          description: Internal Server Error
